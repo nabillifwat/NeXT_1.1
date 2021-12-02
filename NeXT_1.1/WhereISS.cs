@@ -1,7 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using GMap.NET;
+using GMap.NET.WindowsForms;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,72 +13,75 @@ namespace NeXT_1._1
 {
     class WhereISS
     {
-        public void testRun()
+        public List<Info> Run(string detime)
         {
-
-            string ticks = createDates(DateTime.Now.ToString());
-            string dis = getPosition(ticks);
-            List<Info> asd = JsonConvert.DeserializeObject<List<Info>>(dis);
-            asd.FirstOrDefault();
-            var value = getMapping(asd.FirstOrDefault().latitude, asd.FirstOrDefault().longitude);
+            //List<Info> one = getPosition(detime);
+            //var theFirst = one.FirstOrDefault();
+            //
+            string ticks = createDates(detime);
+            List<Info> values = getPositions(ticks);
+            return values;
         }
-
-        private string createDates(string dTime)
+        public Info RunOne(string detime)
+        {
+            var time =  DateTime.Parse(detime);
+            Int32 unixTimestamp = (Int32)(time.ToUniversalTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            Info one = getPosition(unixTimestamp.ToString());
+            var theOne = one;
+            return theOne;
+        }
+        public string createDates(string dTime)
         {
             DateTime curTime = DateTime.Parse(dTime);
             DateTime startTime = curTime.AddHours(-1);
             DateTime endTime = curTime.AddHours(1);
             string ticks = "";
-            //List<DateTime> detime = new List<DateTime>();
-            //DateTime time = startTime;
-            //while (time <= endTime)
-            //{
-            //    detime.Add(time);
-            //    time.AddMinutes(30);
-            //}
-            for (DateTime time = startTime; time <= endTime; time = time.AddMinutes(30))
+            for (DateTime time = startTime; time <= endTime; time = time.AddMinutes(10))
             {
+                Int32 unixTimestamp = (Int32)(time.ToUniversalTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                 if (time == startTime)
                 {
-                    ticks += (time.Ticks / 100000000);
+                    
+                    ticks += unixTimestamp;
                 }
                 else
                 {
-                    ticks += "," + (time.Ticks / 100000000);
+                    ticks += "," + unixTimestamp;
                 }
 
             }
-            //var displayTime = detime.Select(x => x.Ticks.ToString());
             return ticks;
         }
-        private string createDates2()
+        public List<string> createDatesUTC(string dTime)
         {
-            DateTime curTime = DateTime.Parse(DateTime.Now.ToString());
+            DateTime curTime = DateTime.Parse(dTime);
             DateTime startTime = curTime.AddHours(-1);
             DateTime endTime = curTime.AddHours(1);
-            string ticks = "";
-            for (DateTime time = startTime; time <= endTime; time = time.AddMinutes(30))
+            List<string> ticks = new List<string>();
+            for (DateTime time = startTime; time <= endTime; time = time.AddMinutes(10))
             {
-                if (time == startTime)
-                {
-                    ticks += (time.Ticks / 100000000);
-                }
-                else
-                {
-                    ticks += "," + (time.Ticks / 100000000);
-                }
-
+                ticks.Add(time.ToUniversalTime().ToString());
             }
-            //var displayTime = detime.Select(x => x.Ticks.ToString());
             return ticks;
         }
-        private string getPosition(string ticks)
+        private List<Info> getPositions(string ticks)
         {
             //string position = "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=1436029892,1436029902&units=km";
             string position = $"https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps={ticks}";
             var client = new RestClient(position);
             var response = client.Execute(new RestRequest());
-            return response.Content;
+            List<Info> items = JsonConvert.DeserializeObject<List<Info>>(response.Content);
+            return items;
+        }
+        private Info getPosition(string ticks)
+        {
+            //string position = "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=1436029892,1436029902&units=km";
+            string position = $"https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps={ticks}";
+            var client = new RestClient(position);
+            var response = client.Execute(new RestRequest());
+            List<Info> items = JsonConvert.DeserializeObject<List<Info>>(response.Content);
+            var item = items.FirstOrDefault();
+            return item;
         }
 
         private string getMapping(float lat, float lon)
@@ -85,6 +91,19 @@ namespace NeXT_1._1
             var client = new RestClient(map);
             var response = client.Execute(new RestRequest());
             return response.Content;
+        }
+
+        public void GMAP()
+        {
+            //GMapOverlay polyOverlay = new GMapOverlay("polygons");
+            //IList<PointLatLng> points = new List<PointLatLng>();
+            //points.Add(new PointLatLng(-25.969562, 32.585789));
+            //points.Add(new PointLatLng(-25.966205, 32.588171));
+            //GMapPolygon polygon = new GMapPolygon(points, "mypolygon");
+            //polygon.Fill = new SolidBrush(Color.FromArgb(50, Color.Red));
+            //polygon.Stroke = new Pen(Color.Red, 1);
+            //polyOverlay.Polygons.Add(polygon);
+            //gmap.Overlays.Add(polyOverlay);
         }
 
         public class Info
