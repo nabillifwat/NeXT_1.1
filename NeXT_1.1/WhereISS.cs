@@ -58,7 +58,7 @@ namespace NeXT_1._1
             {
                 if (time == startTime)
                 {
-                    ticks += (time / 100000000);
+                    ticks += (time.Ticks / 100000000);
                 }
                 else
                 {

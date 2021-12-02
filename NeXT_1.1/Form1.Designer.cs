@@ -31,9 +31,10 @@ namespace NeXT_1._1
         {
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.map = new GMap.NET.WindowsForms.GMapControl();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.DatePicker = new System.Windows.Forms.DateTimePicker();
             this.btnLoad = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TimePicker = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // splitter1
@@ -70,12 +71,14 @@ namespace NeXT_1._1
             this.map.TabIndex = 1;
             this.map.Zoom = 0D;
             // 
-            // dateTimePicker1
+            // DatePicker
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(578, 49);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 4;
+            this.DatePicker.CustomFormat = "dd-MMM-yyyy";
+            this.DatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.DatePicker.Location = new System.Drawing.Point(578, 49);
+            this.DatePicker.Name = "DatePicker";
+            this.DatePicker.Size = new System.Drawing.Size(99, 20);
+            this.DatePicker.TabIndex = 4;
             // 
             // btnLoad
             // 
@@ -95,14 +98,23 @@ namespace NeXT_1._1
             this.textBox1.Size = new System.Drawing.Size(186, 304);
             this.textBox1.TabIndex = 6;
             // 
+            // TimePicker
+            // 
+            this.TimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.TimePicker.Location = new System.Drawing.Point(684, 48);
+            this.TimePicker.Name = "TimePicker";
+            this.TimePicker.Size = new System.Drawing.Size(104, 20);
+            this.TimePicker.TabIndex = 7;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TimePicker);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnLoad);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.DatePicker);
             this.Controls.Add(this.map);
             this.Controls.Add(this.splitter1);
             this.Name = "Form1";
@@ -116,9 +128,10 @@ namespace NeXT_1._1
 
         private System.Windows.Forms.Splitter splitter1;
         private GMap.NET.WindowsForms.GMapControl map;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker DatePicker;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DateTimePicker TimePicker;
     }
 }
 
