@@ -35,6 +35,9 @@ namespace NeXT_1._1
             this.btnLoad = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.TimePicker = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // splitter1
@@ -92,10 +95,10 @@ namespace NeXT_1._1
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(1115, 114);
+            this.textBox1.Location = new System.Drawing.Point(1126, 117);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(213, 304);
+            this.textBox1.Size = new System.Drawing.Size(213, 255);
             this.textBox1.TabIndex = 6;
             // 
             // TimePicker
@@ -106,11 +109,40 @@ namespace NeXT_1._1
             this.TimePicker.Size = new System.Drawing.Size(104, 20);
             this.TimePicker.TabIndex = 7;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1129, 98);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Timestamps";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(1126, 387);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(93, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "People on the ISS";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(1126, 404);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(213, 173);
+            this.textBox2.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1352, 589);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.TimePicker);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnLoad);
@@ -132,6 +164,9 @@ namespace NeXT_1._1
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DateTimePicker TimePicker;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

@@ -60,7 +60,7 @@ namespace NeXT_1._1
             List<string> ticks = new List<string>();
             for (DateTime time = startTime; time <= endTime; time = time.AddMinutes(10))
             {
-                ticks.Add(time.ToUniversalTime().ToString());
+                ticks.Add(time.ToString());
             }
             return ticks;
         }
@@ -83,7 +83,6 @@ namespace NeXT_1._1
             var item = items.FirstOrDefault();
             return item;
         }
-
         private string getMapping(float lat, float lon)
         {
             //string position = "https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=1436029892,1436029902&units=km";
@@ -92,8 +91,15 @@ namespace NeXT_1._1
             var response = client.Execute(new RestRequest());
             return response.Content;
         }
-
-        public void GMAP()
+        public Astro getPeople()
+        {
+            string path = "http://api.open-notify.org/astros.json";
+            var client = new RestClient(path);
+            var response = client.Execute(new RestRequest());
+            Astro astro = JsonConvert.DeserializeObject<Astro>(response.Content);
+            return astro;
+        }
+        private void GMAP()
         {
             //GMapOverlay polyOverlay = new GMapOverlay("polygons");
             //IList<PointLatLng> points = new List<PointLatLng>();
@@ -122,6 +128,18 @@ namespace NeXT_1._1
             public float solar_lon { get; set; }
             public string units { get; set; }
 
+        }
+
+        public class Astro
+        {
+            public string message { get; set; }
+            public int number { get; set; }
+            public List<People> people { get; set; }
+        }
+        public class People
+        {
+            public string name { get; set; }
+            public string craft { get; set; }
         }
     }
 }

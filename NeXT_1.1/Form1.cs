@@ -34,6 +34,14 @@ namespace NeXT_1._1
             WhereISS.Info theOne = iss.RunOne(detime);
             List<WhereISS.Info> plots = iss.Run(detime);
             List<string> utc = iss.createDatesUTC(detime);
+            WhereISS.Astro astro = iss.getPeople();
+            textBox2.Clear();
+            for (int i = 0; i < astro.people.Count; i++)
+            {
+                textBox2.AppendText($"{i + 1})  {astro.people[i].name}{Environment.NewLine}");
+            }
+
+
             textBox1.Clear();
             for (int i = 0; i < utc.Count; i++)
             {
